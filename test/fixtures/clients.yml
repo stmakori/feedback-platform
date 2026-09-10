@@ -1,0 +1,11 @@
+one:
+  business: one
+  user: one
+  name: Client One
+  email: client.one@example.com
+
+two:
+  business: two
+  user: two
+  name: Client Two
+  email: client.two@example.com
