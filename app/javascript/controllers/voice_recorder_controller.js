@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["start", "stop", "status", "timer", "audio", "voiceInput", "photos", "gallery"]
+  static targets = ["start", "stop", "status", "timer", "audio", "voiceInput", "voiceName", "photos", "photoName", "gallery"]
 
   connect() {
     this.recorder = null
@@ -42,11 +42,13 @@ export default class extends Controller {
     this.voiceInputTarget.value = ""
     this.startTarget.hidden = false
     this.statusTarget.textContent = "No voice note attached"
+    this.voiceNameTarget.textContent = "Choose an audio file instead"
     this.timerTarget.textContent = "00:00"
   }
 
   previewImages() {
     this.galleryTarget.replaceChildren()
+    this.photoNameTarget.textContent = this.photosTarget.files.length === 0 ? "Choose images" : `${this.photosTarget.files.length} image${this.photosTarget.files.length === 1 ? "" : "s"} selected`
     Array.from(this.photosTarget.files).forEach((file) => {
       const image = document.createElement("img")
       image.src = URL.createObjectURL(file)
@@ -54,6 +56,17 @@ export default class extends Controller {
       image.className = "h-20 w-20 rounded-xl object-cover"
       this.galleryTarget.append(image)
     })
+  }
+
+  previewAudioFile() {
+    const file = this.voiceInputTarget.files[0]
+    if (!file) return
+
+    this.audioTarget.src = URL.createObjectURL(file)
+    this.audioTarget.hidden = false
+    this.startTarget.hidden = true
+    this.statusTarget.textContent = "Audio file ready"
+    this.voiceNameTarget.textContent = file.name
   }
 
   finishRecording(stream) {
@@ -67,6 +80,7 @@ export default class extends Controller {
     this.audioTarget.hidden = false
     this.startTarget.hidden = true
     this.statusTarget.textContent = "Voice note ready"
+    this.voiceNameTarget.textContent = file.name
   }
 
   updateTimer() {
