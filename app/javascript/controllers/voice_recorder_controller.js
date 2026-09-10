@@ -17,10 +17,17 @@ export default class extends Controller {
     }
 
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-    this.recorder = new MediaRecorder(stream)
+    const mimeType = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg;codecs=opus"].find((type) => MediaRecorder.isTypeSupported(type))
+    this.recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream)
     this.chunks = []
     this.recorder.addEventListener("dataavailable", (event) => this.chunks.push(event.data))
     this.recorder.addEventListener("stop", () => this.finishRecording(stream))
+    this.recorder.addEventListener("error", () => {
+      stream.getTracks().forEach((track) => track.stop())
+      this.statusTarget.textContent = "The browser could not finish this recording."
+      this.startTarget.hidden = false
+      this.stopTarget.hidden = true
+    })
     this.recorder.start()
     this.startedAt = Date.now()
     this.timerId = window.setInterval(() => this.updateTimer(), 250)
@@ -63,6 +70,7 @@ export default class extends Controller {
     if (!file) return
 
     this.audioTarget.src = URL.createObjectURL(file)
+    this.audioTarget.load()
     this.audioTarget.hidden = false
     this.startTarget.hidden = true
     this.statusTarget.textContent = "Audio file ready"
@@ -72,11 +80,13 @@ export default class extends Controller {
   finishRecording(stream) {
     stream.getTracks().forEach((track) => track.stop())
     const blob = new Blob(this.chunks, { type: this.recorder.mimeType || "audio/webm" })
-    const file = new File([blob], `voice-note-${Date.now()}.webm`, { type: blob.type })
+    const extension = blob.type.includes("mp4") ? "m4a" : blob.type.includes("ogg") ? "ogg" : "webm"
+    const file = new File([blob], `voice-note-${Date.now()}.${extension}`, { type: blob.type })
     const transfer = new DataTransfer()
     transfer.items.add(file)
     this.voiceInputTarget.files = transfer.files
     this.audioTarget.src = URL.createObjectURL(blob)
+    this.audioTarget.load()
     this.audioTarget.hidden = false
     this.startTarget.hidden = true
     this.statusTarget.textContent = "Voice note ready"
