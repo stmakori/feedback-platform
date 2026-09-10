@@ -17,6 +17,8 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to admin_dashboard_url
+    follow_redirect!
+    assert_response :success
     assert User.find_by(email: email).admin?
   end
 end

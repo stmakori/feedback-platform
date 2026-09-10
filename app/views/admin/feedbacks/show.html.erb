@@ -1,4 +1,1 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Feedbacks#show</h1>
-  <p>Find me in app/views/admin/feedbacks/show.html.erb</p>
-</div>
+<%= render "shared/workspace_nav" %><main class="mx-auto max-w-3xl px-6 py-10 lg:px-10 lg:py-16"><%= link_to "← All feedback", admin_feedbacks_path, class: "font-mono text-xs uppercase tracking-[.18em] text-[#617069]" %><article class="mt-8 rounded-2xl border border-[#1e2825]/10 bg-white/70 p-7 shadow-lg sm:p-10"><div class="flex items-center justify-between"><div><p class="font-mono text-[10px] uppercase tracking-[.18em] text-[#ef806d]">Client signal</p><h1 class="mt-2 text-3xl font-extrabold"><%= @feedback.client.name %></h1></div><span class="font-mono text-xs text-[#7d8982]"><%= @feedback.created_at.strftime("%d %b %Y") %></span></div><p class="mt-10 whitespace-pre-wrap text-xl leading-9"><%= @feedback.body.presence || "Attachment-only feedback" %></p></article></main>
