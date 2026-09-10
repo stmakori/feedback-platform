@@ -1,0 +1,26 @@
+<main class="min-h-screen bg-[#f4f1e9] px-6 py-8 text-[#1e2825] sm:px-10">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between">
+    <%= link_to root_path, class: "font-mono text-xs font-medium uppercase tracking-[.22em]" do %>signal / feedback<% end %>
+    <%= link_to "Create workspace", signup_path, class: "rounded-full border border-[#1e2825]/20 px-4 py-2 text-sm font-semibold transition hover:bg-[#1e2825] hover:text-white" %>
+  </nav>
+
+  <section class="mx-auto grid max-w-6xl gap-12 py-16 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:py-24">
+    <div>
+      <p class="font-mono text-xs uppercase tracking-[.22em] text-[#ef806d]">Welcome back</p>
+      <h1 class="mt-5 text-5xl font-extrabold leading-[.98] tracking-[-.06em] sm:text-6xl">Return to the conversation.</h1>
+      <p class="mt-6 max-w-md text-lg leading-8 text-[#617069]">Your clearest client signals are waiting where you left them.</p>
+      <div class="mt-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.18em] text-[#7d8982]"><span class="h-2 w-2 rounded-full bg-[#ef806d]"></span> private workspace</div>
+    </div>
+
+    <div class="rounded-[2rem] bg-[#1e2825] p-7 text-[#f4f1e9] shadow-2xl sm:p-10">
+      <div class="flex items-center justify-between"><span class="font-mono text-[10px] uppercase tracking-[.2em] text-[#9eb3a5]">Sign in</span><span class="font-mono text-[10px] text-[#ef806d]">01 / 01</span></div>
+      <% if resource.errors.any? %><div class="mt-6 rounded-xl border border-[#ef806d]/50 bg-[#ef806d]/10 p-4 text-sm text-[#ffd6ce]"><%= resource.errors.full_messages.to_sentence %></div><% end %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-8 space-y-5" }) do |form| %>
+        <div><%= form.label :email, "Email address", class: "mb-2 block text-sm text-[#b6c5ba]" %><%= form.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3.5 text-white outline-none transition placeholder:text-[#789083] focus:border-[#ef806d] focus:ring-2 focus:ring-[#ef806d]/20" %></div>
+        <div><%= form.label :password, "Password", class: "mb-2 block text-sm text-[#b6c5ba]" %><%= form.password_field :password, autocomplete: "current-password", required: true, class: "w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3.5 text-white outline-none transition placeholder:text-[#789083] focus:border-[#ef806d] focus:ring-2 focus:ring-[#ef806d]/20" %></div>
+        <div class="flex items-center justify-between text-sm"><% if devise_mapping.rememberable? %><label class="flex items-center gap-2 text-[#b6c5ba]"><%= form.check_box :remember_me, class: "accent-[#ef806d]" %> Remember me</label><% end %><%= link_to "Forgot password?", new_password_path(resource_name), class: "text-[#ef806d] hover:underline" %></div>
+        <%= form.submit "Enter workspace", class: "w-full rounded-xl bg-[#ef806d] px-5 py-3.5 font-extrabold text-[#1e2825] transition hover:-translate-y-0.5 hover:bg-[#ff9886]" %>
+      <% end %>
+    </div>
+  </section>
+</main>

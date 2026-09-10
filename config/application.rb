@@ -17,6 +17,7 @@ module FeedbackPlatform
     config.autoload_lib(ignore: %w[assets tasks])
     config.active_job.queue_adapter = :sidekiq
     config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
+    config.action_dispatch.cookies_serializer = :marshal
 
     # Configuration for the application, engines, and railties goes here.
     #
