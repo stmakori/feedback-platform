@@ -1,0 +1,4 @@
+<main class="mx-auto max-w-3xl px-6 py-10"><h1 class="text-3xl font-bold">Your feedback</h1><%= link_to "Share feedback", new_client_feedback_path, class: "mt-6 inline-block rounded bg-ink px-4 py-2 text-white" %><ul class="mt-8 space-y-3"><% @feedbacks.each do |feedback| %><li class="rounded border p-4"><%= feedback.body %></li><% end %></ul></main><div>
+  <h1 class="font-bold text-4xl">Client::Dashboards#show</h1>
+  <p>Find me in app/views/client/dashboards/show.html.erb</p>
+</div>

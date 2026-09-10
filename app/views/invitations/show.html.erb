@@ -1,0 +1,4 @@
+<main class="mx-auto max-w-xl px-6 py-10"><h1 class="text-3xl font-bold">Join your feedback portal</h1><%= form_with url: invitation_path(token: params[:token]), method: :patch, class: "mt-8 space-y-4" do |form| %><%= password_field_tag :password, nil, placeholder: "Password", required: true, class: "w-full rounded border p-3" %><%= password_field_tag :password_confirmation, nil, placeholder: "Confirm password", required: true, class: "w-full rounded border p-3" %><%= submit_tag "Accept invitation", class: "rounded bg-ink px-5 py-3 text-white" %><% end %></main><div>
+  <h1 class="font-bold text-4xl">Invitations#show</h1>
+  <p>Find me in app/views/invitations/show.html.erb</p>
+</div>

@@ -1,0 +1,11 @@
+<main class="mx-auto max-w-xl px-6 py-12">
+  <h1 class="text-3xl font-bold">Create your workspace</h1>
+  <%= form_with url: signup_path, class: "mt-8 space-y-4" do |form| %>
+    <%= text_field_tag "business[name]", @business.name, placeholder: "Business name", required: true, class: "w-full rounded border p-3" %>
+    <%= email_field_tag "business[email]", @business.email, placeholder: "Business email", required: true, class: "w-full rounded border p-3" %>
+    <%= email_field_tag "user[email]", @user.email, placeholder: "Admin email", required: true, class: "w-full rounded border p-3" %>
+    <%= password_field_tag "user[password]", nil, placeholder: "Password", required: true, class: "w-full rounded border p-3" %>
+    <%= password_field_tag "user[password_confirmation]", nil, placeholder: "Confirm password", required: true, class: "w-full rounded border p-3" %>
+    <%= submit_tag "Create workspace", class: "rounded bg-ink px-5 py-3 text-white" %>
+  <% end %>
+</main>

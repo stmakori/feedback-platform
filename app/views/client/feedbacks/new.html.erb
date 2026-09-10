@@ -1,0 +1,4 @@
+<main class="mx-auto max-w-xl px-6 py-10"><h1 class="text-3xl font-bold">Share feedback</h1><%= form_with model: [:client, @feedback], class: "mt-8 space-y-4" do |form| %><%= form.text_area :body, rows: 8, placeholder: "What should we know?", class: "w-full rounded border p-3" %><%= form.file_field :photos, multiple: true, accept: "image/*", class: "w-full" %><%= form.submit "Submit feedback", class: "rounded bg-ink px-5 py-3 text-white" %><% end %></main><div>
+  <h1 class="font-bold text-4xl">Client::Feedbacks#new</h1>
+  <p>Find me in app/views/client/feedbacks/new.html.erb</p>
+</div>
