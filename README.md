@@ -14,6 +14,8 @@ bin/dev
 bundle exec sidekiq
 ```
 
+In development, invitation emails are written to `tmp/mails` unless SMTP variables are configured. For real delivery, set `SMTP_ADDRESS`, `SMTP_PORT`, `SMTP_DOMAIN`, `SMTP_USERNAME`, and `SMTP_PASSWORD` in `.env`, then restart Rails and Sidekiq.
+
 Create an admin workspace at `/signup`. Admins can add clients and queue invitations; invited clients can set a password and submit text or photo feedback.
 
 Every admin lookup is scoped through `Current.business`, and client feedback is scoped through the authenticated client association.
