@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
   def show
     @client = find_client
-    return render :expired, status: :gone unless @client&.invitation_pending?
+    render :expired, status: :gone unless @client&.invitation_pending?
   end
 
   def update

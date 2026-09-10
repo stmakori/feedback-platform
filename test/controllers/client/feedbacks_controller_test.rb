@@ -1,23 +1,23 @@
 require "test_helper"
 
 class Client::FeedbacksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get client_feedbacks_index_url
-    assert_response :success
+  test "index requires a client session" do
+    get client_feedbacks_url
+    assert_redirected_to new_user_session_url
   end
 
-  test "should get new" do
-    get client_feedbacks_new_url
-    assert_response :success
+  test "new requires a client session" do
+    get new_client_feedback_url
+    assert_redirected_to new_user_session_url
   end
 
-  test "should get create" do
-    get client_feedbacks_create_url
-    assert_response :success
+  test "create requires a client session" do
+    post client_feedbacks_url, params: { feedback: { body: "Hello" } }
+    assert_redirected_to new_user_session_url
   end
 
-  test "should get show" do
-    get client_feedbacks_show_url
-    assert_response :success
+  test "show requires a client session" do
+    get client_feedback_url(1)
+    assert_redirected_to new_user_session_url
   end
 end

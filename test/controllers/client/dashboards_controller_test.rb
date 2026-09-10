@@ -1,8 +1,8 @@
 require "test_helper"
 
 class Client::DashboardsControllerTest < ActionDispatch::IntegrationTest
-  test "should get show" do
-    get client_dashboards_show_url
-    assert_response :success
+  test "requires a client session" do
+    get client_dashboard_url
+    assert_redirected_to new_user_session_url
   end
 end

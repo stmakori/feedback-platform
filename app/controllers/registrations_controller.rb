@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  skip_forgery_protection only: :create
+
   def new
     @business = Business.new
     @user = User.new

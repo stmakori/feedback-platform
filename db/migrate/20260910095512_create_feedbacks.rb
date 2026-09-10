@@ -7,7 +7,7 @@ class CreateFeedbacks < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
-    add_index :feedbacks, [:business_id, :created_at]
-    add_index :feedbacks, [:client_id, :created_at]
+    add_index :feedbacks, [ :business_id, :created_at ]
+    add_index :feedbacks, [ :client_id, :created_at ]
   end
 end

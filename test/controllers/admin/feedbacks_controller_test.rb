@@ -1,13 +1,13 @@
 require "test_helper"
 
 class Admin::FeedbacksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get admin_feedbacks_index_url
-    assert_response :success
+  test "index requires an admin session" do
+    get admin_feedbacks_url
+    assert_redirected_to new_user_session_url
   end
 
-  test "should get show" do
-    get admin_feedbacks_show_url
-    assert_response :success
+  test "show requires an admin session" do
+    get admin_feedback_url(1)
+    assert_redirected_to new_user_session_url
   end
 end

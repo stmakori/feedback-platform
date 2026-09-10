@@ -12,7 +12,7 @@ class CreateClients < ActiveRecord::Migration[8.1]
       t.datetime :invitation_expires_at
       t.timestamps
     end
-    add_index :clients, [:business_id, :email], unique: true
+    add_index :clients, [ :business_id, :email ], unique: true
     add_index :clients, :user_id, unique: true, name: "index_clients_on_user_id_unique"
     add_index :clients, :invitation_token_digest, unique: true
   end
