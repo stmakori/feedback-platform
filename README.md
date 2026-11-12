@@ -11,6 +11,18 @@ business sees every piece of feedback in one dashboard.
 
 Built with Rails 8, Hotwire (Turbo + Stimulus), Devise, Active Storage, Sidekiq and Tailwind CSS.
 
+![Landing page: "Make room for the words that move the work."](docs/screenshots/home.png)
+
+## Screenshots
+
+| A client sends feedback: text, photos and a voice note | The business reads it, with playback and photos |
+|---|---|
+| ![Client feedback composer with a note, two swatch photos and a recorded voice note with waveform preview](docs/screenshots/client-new-feedback.png) | ![Admin feedback detail with the client's note, a playable voice note waveform with speed controls, and the photos](docs/screenshots/admin-feedback-detail.png) |
+
+![Admin dashboard: total feedback, client count and the client list](docs/screenshots/admin-dashboard.png)
+
+<sub>Screenshots use a demo workspace with made-up clients.</sub>
+
 ## Features
 
 **For businesses (admins)**
