@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::Base
+  def after_sign_in_path_for(resource)
+    return admin_dashboard_path if resource.admin?
+    return client_dashboard_path if resource.client?
+
+    root_path
+  end
+
   private
 
   def require_admin!

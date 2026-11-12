@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => "/system", as: "rails_admin"
   devise_for :users, skip: [ :registrations ]
   get "signup", to: "registrations#new", as: :signup
   post "signup", to: "registrations#create"
