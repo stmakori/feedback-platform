@@ -7,7 +7,8 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   config.authorize_with do
-    redirect_to main_app.root_path, alert: "Not authorized." unless current_user&.admin?
+    # /system sees every business, so business admins are not enough: see User#platform_admin?.
+    redirect_to main_app.root_path, alert: "Not authorized." unless current_user&.platform_admin?
   end
 
   config.actions do

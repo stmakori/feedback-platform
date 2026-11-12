@@ -30,8 +30,9 @@ Built with Rails 8, Hotwire (Turbo + Stimulus), Devise, Active Storage, Sidekiq 
 - See your own feedback history, and nobody else's.
 
 **Platform**
-- `/system`: a [RailsAdmin](https://github.com/railsadminteam/rails_admin) back office for managing
-  records directly.
+- `/system`: a [RailsAdmin](https://github.com/railsadminteam/rails_admin) back office for the
+  platform owner. It sees every business, so only admins listed in `PLATFORM_ADMIN_EMAILS` can open
+  it. Business admins are turned away.
 - `/up`: a health check for load balancers and uptime monitors.
 
 ## How it works
@@ -48,7 +49,9 @@ Business ──< User (role: admin | client)
 - **Tenant isolation.** Every admin query goes through `Current.business` (for example
   `Current.business.clients.find(id)`), so one business can never load another's records. Clients
   only reach feedback through their own `current_user.client` association. `Feedback` also checks
-  that its business matches its client's business.
+  that its business matches its client's business. Integration tests (`test/integration/access_control_test.rb`)
+  check that admins and clients get `404` for another tenant's records, and that only platform
+  owners can reach `/system`.
 - **Secure invitations.** The raw token is only ever in the email link. The database stores its
   SHA-256 digest, an expiry (7 days) and an accepted time, and the digest is cleared once used.
   Expired or reused links get `410 Gone`.
@@ -102,6 +105,7 @@ automatically, so export them in your shell, for example with `set -a; source .e
 | `DATABASE_URL` | settings in `config/database.yml` | PostgreSQL connection |
 | `REDIS_URL` | `redis://localhost:6379/0` | Sidekiq and cache |
 | `APP_HOST` | `localhost:3000` | Host used in invitation links |
+| `PLATFORM_ADMIN_EMAILS` | unset (nobody) | Comma-separated admin emails allowed into `/system` |
 | `SMTP_ADDRESS`, `SMTP_PORT`, `SMTP_DOMAIN`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_AUTHENTICATION` | unset | Real email delivery |
 
 Without `SMTP_ADDRESS`, development emails are **written to `tmp/mails/<recipient>`** instead of being
@@ -121,7 +125,7 @@ sent, so you can copy the invitation link from there.
 ## Tests and checks
 
 ```bash
-bin/rails test            # model and controller tests
+bin/rails test            # model, controller and access-control tests
 bin/rubocop               # style
 bin/brakeman              # static security analysis
 bin/bundler-audit         # known-vulnerable gems
