@@ -22,7 +22,7 @@ gem "sidekiq"
 gem "redis"
 gem "pagy"
 gem "rails_admin"
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.2"
 gem "sassc-rails"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
